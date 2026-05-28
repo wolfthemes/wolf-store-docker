@@ -25,11 +25,9 @@ services:
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
       WORDPRESS_DEBUG: 1
     volumes:
-      # Your plugins — live mounted from git clones
       - ./plugins/wolf-store:/var/www/html/wp-content/plugins/wolf-store
-      # Your child theme — live mounted from git clone
       - ./themes/wolf-seijaku:/var/www/html/wp-content/themes/wolf-seijaku
-      # Persist the full WP installation (uploaded zips, media, etc.)
+      - ./config/php.ini:/usr/local/etc/php/conf.d/custom.ini  # ← add this
       - wp_data:/var/www/html
 
   # Optional DB GUI — visit http://localhost:8081
