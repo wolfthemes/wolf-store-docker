@@ -108,6 +108,23 @@ docker compose down -v
 
 ---
 
+## WP-CLI
+
+WP-CLI runs inside the WordPress container. To avoid typing the full `docker exec` command every time, add this alias to your WSL `~/.bashrc`:
+
+```bash
+echo 'alias wp="docker exec -it wolf-store-docker-wordpress-1 wp --allow-root"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Then use `wp` directly from WSL:
+
+```bash
+wp plugin install customizer-export-import --activate
+wp plugin list
+wp cache flush
+```
+
 ## Useful URLs
 
 | URL | What |
