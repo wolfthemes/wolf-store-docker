@@ -25,8 +25,8 @@ Mirrors the staging setup at staging20.wolfthemes.com.
 ### 1. Clone this repo
 
 ```bash
-git clone <this-repo-url> wolf-store-dev
-cd wolf-store-dev
+git clone <this-repo-url> wolf-store-docker
+cd wolf-store-docker
 ```
 
 ### 2. Clone the plugins and themes
