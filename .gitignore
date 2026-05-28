@@ -1,0 +1,6 @@
+# Secrets — never commit
+.env
+
+# Plugin and theme source folders — cloned separately
+plugins/
+themes/
