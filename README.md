@@ -92,6 +92,14 @@ docker compose down -v
 
 ## WP-CLI
 
+## Installation
+
+Install WP-CLI in the container
+
+```bash
+docker exec -it wolf-store-docker-wordpress-1 bash -c "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp"
+```
+
 WP-CLI runs inside the WordPress container. To avoid typing the full `docker exec` command every time, add this alias to your WSL `~/.bashrc`:
 
 ```bash
