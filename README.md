@@ -1,7 +1,8 @@
-# Wolf Store — Docker Dev Environment
+# WolfThemes Store — Docker Dev Environment
 
-Local WordPress development environment for the Wolf Store plugin frontend.  
-Mirrors the staging setup at staging20.wolfthemes.com.
+Local WordPress development environment for the WolfThemes Store plugin frontend.  
+
+_This is an example of README file and a personal reference point for Docker commands_
 
 ## Stack
 
@@ -16,7 +17,7 @@ Mirrors the staging setup at staging20.wolfthemes.com.
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
 - Git
 - Node.js + npm (for webpack/frontend work)
-- SSH access to WolfThemes repos
+- SSH access
 
 ---
 
@@ -29,16 +30,13 @@ git clone <this-repo-url> wolf-store-docker
 cd wolf-store-docker
 ```
 
-### 2. Clone the plugins and themes
+### 2. Clone what you need
 
 ```bash
-mkdir -p plugins themes
+mkdir plugins
 
 # Wolf Store plugin
 git clone git@github.com:wolfthemes/wolf-store.git plugins/wolf-store
-
-# Wolf Seijaku child theme
-git clone git@github.com:wolfthemes/wolf-seijaku.git themes/wolf-seijaku
 ```
 
 ### 3. Set up your environment variables
@@ -62,31 +60,15 @@ First run will pull the Docker images — takes about a minute.
 Go to **http://localhost:8080** and complete the 5-minute WordPress setup.  
 Use any username/password you like — this is local only.
 
-### 6. Install the Seijaku parent theme
-
-- Go to **WP Admin → Appearance → Themes → Add New → Upload Theme**
-- Upload your `seijaku.zip` file
-- Activate Seijaku
-
-### 7. Install required plugins via Seijaku's installer
-
-After activating Seijaku, a notice will appear prompting you to install required plugins.  
-This installs **Wolf Core**, **Elementor**, and other dependencies automatically.
-
-### 8. Activate the child theme and Wolf Store
-
-- Go to **Appearance → Themes** → activate **Wolf Seijaku**
-- Go to **Plugins** → activate **Wolf Store**
-
-### 9. Start frontend development
+### 6. Start frontend development
 
 ```bash
 cd plugins/wolf-store
 npm install
-npm run watch
+npm run start
 ```
 
-Webpack watches `src/` and writes to `build/`. Refresh **http://localhost:8080** to see changes instantly.
+Webpack watches `src/` and writes to `build/`. Refresh **http://localhost:8080** to see changes instantly or use the port **3000**.
 
 ---
 
@@ -144,22 +126,20 @@ wp cache flush
 ## Project Structure
 
 ```
-wolf-store-dev/
+wolf-store-docker/
 ├── docker-compose.yml
 ├── .env                  ← gitignored, your local secrets
 ├── .env.example          ← committed, safe placeholder values
 ├── .gitignore
 ├── README.md
 ├── plugins/              ← gitignored, cloned separately
-│   └── wolf-store/
-└── themes/               ← gitignored, cloned separately
-    └── wolf-seijaku/
+    └── wolf-store/
 ```
 
 ---
 
 ## Notes
 
-- `plugins/` and `themes/` are **live-mounted** into the container — edits on your host reflect instantly, no restart needed.
+- `plugins/` folder is **live-mounted** into the container — edits on your host reflect instantly, no restart needed.
 - Third-party plugins (Wolf Core, Elementor) are installed inside the persistent `wp_data` Docker volume via Seijaku's plugin installer.
 - The `build/` folder in Wolf Store is committed to git (no server-side webpack compilation on shared hosting).

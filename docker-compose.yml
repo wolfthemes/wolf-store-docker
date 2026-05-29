@@ -32,7 +32,6 @@ services:
         define('WP_MAX_MEMORY_LIMIT', '512M');
     volumes:
       - ./plugins/wolf-store:/var/www/html/wp-content/plugins/wolf-store
-      - ./themes/wolf-seijaku:/var/www/html/wp-content/themes/wolf-seijaku
       - ./config/php.ini:/usr/local/etc/php/conf.d/custom.ini  # ← add this
       - wp_data:/var/www/html
 
