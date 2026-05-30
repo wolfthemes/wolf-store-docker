@@ -1,6 +1,6 @@
 # WolfThemes Store — Docker Dev Environment
 
-Local WordPress development environment for the WolfThemes Store plugin frontend. 
+Local WordPress development environment for the WolfThemes Store plugin. 
 
 [Staging Website](https://staging20.wolfthemes.com/store/)
 
