@@ -31,8 +31,10 @@ services:
         define('WP_MEMORY_LIMIT', '256M');
         define('WP_MAX_MEMORY_LIMIT', '512M');
     volumes:
+      - ./themes/wolf-blank:/var/www/html/wp-content/themes/wolf-blank
       - ./plugins/wolf-store:/var/www/html/wp-content/plugins/wolf-store
-      - ./config/php.ini:/usr/local/etc/php/conf.d/custom.ini  # ← add this
+      - ./plugins/wolf-svg:/var/www/html/wp-content/plugins/wolf-svg
+      - ./config/php.ini:/usr/local/etc/php/conf.d/custom.ini
       - wp_data:/var/www/html
 
   # Optional DB GUI — visit http://localhost:8081
