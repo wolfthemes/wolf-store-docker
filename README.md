@@ -16,10 +16,10 @@ _This is an example README and a personal reference point for starter commands._
 
 | Path | Type | Role |
 |---|---|---|
-| `themes/wolf-blank` | FSE Theme | Design tokens, layout, templates |
+| `themes/wolf-blank` | FSE Theme | Base theme — design tokens, layout, templates |
+| `themes/seijaku-fse` | FSE Theme | Child theme built on wolf-blank |
 | `plugins/wolf-store` | Plugin | WooCommerce blocks, REST API |
 | `plugins/wolf-blocks` | Plugin | Reusable Gutenberg blocks |
-| `plugins/allow-svg` | Plugin | Enables SVG uploads/sanitization |
 
 The theme owns all design tokens (colors, typography, spacing, radius, shadows) via
 `theme.json` and `assets/css/global.css`. Plugins consume those CSS custom properties and
@@ -52,13 +52,13 @@ The `themes/` and `plugins/` folders are gitignored and cloned separately.
 ```bash
 mkdir -p themes plugins
 
-# FSE theme
+# FSE themes
 git clone git@github.com:wolfthemes/wolf-blank.git themes/wolf-blank
+git clone git@github.com:wolfthemes/seijaku-fse.git themes/seijaku-fse
 
 # Plugins
 git clone git@github.com:wolfthemes/wolf-store.git plugins/wolf-store
 git clone git@github.com:wolfthemes/wolf-blocks.git plugins/wolf-blocks
-git clone git@github.com:wolfthemes/allow-svg.git plugins/allow-svg
 ```
 
 ### 3. Set up your environment variables
@@ -85,8 +85,8 @@ Use any username/password you like — this is local only.
 Then activate the theme and plugins (via wp-admin, or WP-CLI — see below):
 
 ```bash
-wp theme activate wolf-blank
-wp plugin activate wolf-store wolf-blocks allow-svg
+wp theme activate seijaku-fse
+wp plugin activate wolf-store wolf-blocks
 ```
 
 ### 6. Start frontend development
@@ -179,11 +179,11 @@ wolf-store-docker/
 ├── config/
 │   └── php.ini           ← custom PHP config mounted into the container
 ├── themes/               ← gitignored, cloned separately
-│   └── wolf-blank/
+│   ├── wolf-blank/
+│   └── seijaku-fse/
 └── plugins/              ← gitignored, cloned separately
     ├── wolf-store/
-    ├── wolf-blocks/
-    └── allow-svg/
+    └── wolf-blocks/
 ```
 
 ---

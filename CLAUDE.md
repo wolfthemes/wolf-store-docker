@@ -16,7 +16,6 @@ are gitignored by the root repo (see `.gitignore`) and cloned separately.
 | `themes/seijaku-fse` | `git@github.com:wolfthemes/seijaku-fse.git` | `master` |
 | `plugins/wolf-store` | `git@github.com:wolfthemes/wolf-store.git` | `dev` |
 | `plugins/wolf-blocks` | `git@github.com:wolfthemes/wolf-blocks.git` | `master` |
-| `plugins/allow-svg` | `git@github.com:wolfthemes/allow-svg.git` | `main` |
 
 ### Rules when working across projects
 
