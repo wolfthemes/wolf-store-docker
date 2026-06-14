@@ -19,6 +19,7 @@ _This is an example README and a personal reference point for starter commands._
 | `themes/wolf-blank` | FSE Theme | Design tokens, layout, templates |
 | `plugins/wolf-store` | Plugin | WooCommerce blocks, REST API |
 | `plugins/wolf-blocks` | Plugin | Reusable Gutenberg blocks |
+| `plugins/allow-svg` | Plugin | Enables SVG uploads/sanitization |
 
 The theme owns all design tokens (colors, typography, spacing, radius, shadows) via
 `theme.json` and `assets/css/global.css`. Plugins consume those CSS custom properties and
