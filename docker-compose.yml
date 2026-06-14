@@ -33,6 +33,7 @@ services:
     volumes:
       - ./themes/wolf-blank:/var/www/html/wp-content/themes/wolf-blank
       - ./plugins/wolf-store:/var/www/html/wp-content/plugins/wolf-store
+      - ./plugins/wolf-block:/var/www/html/wp-content/plugins/wolf-block
       - ./plugins/allow-svg:/var/www/html/wp-content/plugins/allow-svg
       - ./config/php.ini:/usr/local/etc/php/conf.d/custom.ini
       - wp_data:/var/www/html
