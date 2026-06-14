@@ -1,16 +1,28 @@
 # WolfThemes Store — Docker Dev Environment
 
-Local WordPress development environment for the WolfThemes Store plugin. 
+Local WordPress development environment for the WolfThemes FSE theme and Store plugins.
 
 [Staging Website](https://staging20.wolfthemes.com/store/)
 
-_This is an example of README file and a personal reference point for Docker commands_
+_This is an example README and a personal reference point for starter commands._
 
 ## Stack
 
-- WordPress (latest) + Apache + PHP
+- WordPress (latest) + Apache + PHP 8.x — **FSE / Gutenberg only** (no Elementor, no page builders, no wolf-core)
 - MySQL 8.0
 - Adminer (DB GUI) at http://localhost:8081
+
+### Projects developed here
+
+| Path | Type | Role |
+|---|---|---|
+| `themes/wolf-blank` | FSE Theme | Design tokens, layout, templates |
+| `plugins/wolf-store` | Plugin | WooCommerce blocks, REST API |
+| `plugins/wolf-blocks` | Plugin | Reusable Gutenberg blocks |
+
+The theme owns all design tokens (colors, typography, spacing, radius, shadows) via
+`theme.json` and `assets/css/global.css`. Plugins consume those CSS custom properties and
+never hardcode design values. See `plugins/wolf-store/BOUNDARIES.md`.
 
 ---
 
@@ -32,13 +44,20 @@ git clone <this-repo-url> wolf-store-docker
 cd wolf-store-docker
 ```
 
-### 2. Clone what you need
+### 2. Clone the theme and plugins
+
+The `themes/` and `plugins/` folders are gitignored and cloned separately.
 
 ```bash
-mkdir plugins
+mkdir -p themes plugins
 
-# Wolf Store plugin
+# FSE theme
+git clone git@github.com:wolfthemes/wolf-blank.git themes/wolf-blank
+
+# Plugins
 git clone git@github.com:wolfthemes/wolf-store.git plugins/wolf-store
+git clone git@github.com:wolfthemes/wolf-blocks.git plugins/wolf-blocks
+git clone git@github.com:wolfthemes/allow-svg.git plugins/allow-svg
 ```
 
 ### 3. Set up your environment variables
@@ -59,8 +78,15 @@ First run will pull the Docker images — takes about a minute.
 
 ### 5. Run the WordPress installer
 
-Go to **http://localhost:8080** and complete the 5-minute WordPress setup.  
+Go to **http://localhost:8080** and complete the 5-minute WordPress setup.
 Use any username/password you like — this is local only.
+
+Then activate the theme and plugins (via wp-admin, or WP-CLI — see below):
+
+```bash
+wp theme activate wolf-blank
+wp plugin activate wolf-store wolf-blocks allow-svg
+```
 
 ### 6. Start frontend development
 
@@ -70,7 +96,9 @@ npm install
 npm run start
 ```
 
-Webpack watches `src/` and writes to `build/`. Refresh **http://localhost:8080** to see changes instantly or use the port **3000**.
+Webpack watches `src/` and writes to `build/`. Refresh **http://localhost:8080** to see
+changes, or use port **3000** for hot reload. Repeat for any other package you're working
+on (`plugins/wolf-blocks`, `themes/wolf-blank`).
 
 ---
 
@@ -90,19 +118,23 @@ docker compose logs -f wordpress
 docker compose down -v
 ```
 
+WordPress debugging is enabled in `docker-compose.yml` (`WP_DEBUG`, `WP_DEBUG_LOG`,
+`SCRIPT_DEBUG`). Debug output is logged to `wp-content/debug.log` inside the container.
+
 ---
 
 ## WP-CLI
 
-## Installation
+### Installation
 
-Install WP-CLI in the container
+Install WP-CLI in the container:
 
 ```bash
 docker exec -it wolf-store-docker-wordpress-1 bash -c "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp"
 ```
 
-WP-CLI runs inside the WordPress container. To avoid typing the full `docker exec` command every time, add this alias to your WSL `~/.bashrc`:
+WP-CLI runs inside the WordPress container. To avoid typing the full `docker exec`
+command every time, add this alias to your WSL `~/.bashrc`:
 
 ```bash
 echo 'alias wp="docker exec -it wolf-store-docker-wordpress-1 wp --allow-root"' >> ~/.bashrc
@@ -112,8 +144,8 @@ source ~/.bashrc
 Then use `wp` directly from WSL:
 
 ```bash
-wp plugin install customizer-export-import --activate
 wp plugin list
+wp plugin install woocommerce --activate
 wp cache flush
 ```
 
@@ -124,6 +156,7 @@ wp cache flush
 | http://localhost:8080 | WordPress frontend |
 | http://localhost:8080/wp-admin | WordPress admin |
 | http://localhost:8081 | Adminer DB GUI (server: `db`) |
+| http://localhost:3000 | Webpack dev server (hot reload) |
 
 ### Adminer login
 - **Server:** `db`
@@ -142,14 +175,24 @@ wolf-store-docker/
 ├── .env.example          ← committed, safe placeholder values
 ├── .gitignore
 ├── README.md
-├── plugins/              ← gitignored, cloned separately
-    └── wolf-store/
+├── config/
+│   └── php.ini           ← custom PHP config mounted into the container
+├── themes/               ← gitignored, cloned separately
+│   └── wolf-blank/
+└── plugins/              ← gitignored, cloned separately
+    ├── wolf-store/
+    ├── wolf-blocks/
+    └── allow-svg/
 ```
 
 ---
 
 ## Notes
 
-- `plugins/` folder is **live-mounted** into the container — edits on your host reflect instantly, no restart needed.
-- Third-party plugins (Wolf Core, Elementor) are installed inside the persistent `wp_data` Docker volume via Seijaku's plugin installer.
-- The `build/` folder in Wolf Store is committed to git (no server-side webpack compilation on shared hosting).
+- `themes/` and `plugins/` are **live-mounted** into the container — edits on your host
+  reflect instantly, no restart needed.
+- WordPress core and any third-party plugins (e.g. WooCommerce) live in the persistent
+  `wp_data` Docker volume, installed via WP-CLI or wp-admin.
+- The `build/` folder in each plugin is committed to git (no server-side webpack
+  compilation on shared hosting).
+- `config/php.ini` is mounted as a custom PHP config; adjust limits there if needed.
