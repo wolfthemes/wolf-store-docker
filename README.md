@@ -18,7 +18,7 @@ _This is an example README and a personal reference point for starter commands._
 |---|---|---|
 | `themes/wolf-blank` | FSE Theme | Base theme — design tokens, layout, templates |
 | `themes/seijaku-fse` | FSE Theme | Child theme built on wolf-blank |
-| `plugins/wolf-store` | Plugin | WooCommerce blocks, REST API |
+| `plugins/wolf-store` | Plugin | Theme store — OOP PHP backend, React frontend via WP REST API |
 | `plugins/wolf-blocks` | Plugin | Reusable Gutenberg blocks |
 
 The theme owns all design tokens (colors, typography, spacing, radius, shadows) via
