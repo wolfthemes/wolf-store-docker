@@ -32,6 +32,7 @@ services:
         define('WP_MAX_MEMORY_LIMIT', '512M');
     volumes:
       - ./themes/wolf-blank:/var/www/html/wp-content/themes/wolf-blank
+      - ./themes/seijaku-fse/:/var/www/html/wp-content/themes/seijaku-fse
       - ./plugins/wolf-store:/var/www/html/wp-content/plugins/wolf-store
       - ./plugins/wolf-blocks:/var/www/html/wp-content/plugins/wolf-blocks
       - ./plugins/allow-svg:/var/www/html/wp-content/plugins/allow-svg
