@@ -35,6 +35,7 @@ services:
       - ./themes/seijaku-fse/:/var/www/html/wp-content/themes/seijaku-fse
       - ./plugins/wolf-store:/var/www/html/wp-content/plugins/wolf-store
       - ./plugins/wolf-blocks:/var/www/html/wp-content/plugins/wolf-blocks
+      - ./plugins/wolfthemes-promo-banner:/var/www/html/wp-content/plugins/wolfthemes-promo-banner
       - ./plugins/allow-svg:/var/www/html/wp-content/plugins/allow-svg
       - ./config/php.ini:/usr/local/etc/php/conf.d/custom.ini
       - wp_data:/var/www/html
