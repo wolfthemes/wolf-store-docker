@@ -1,7 +1,7 @@
 #!/bin/bash
 # pull-all.sh — run from wolfthemes-dev/wolf-store-docker
 
-for dir in themes/*/ plugins/*/; do
+for dir in themes/*/ plugins/*/ tools/*/ ; do
   echo "=== $dir ==="
   branch=$(git -C "$dir" branch --show-current 2>/dev/null)
   if [ -n "$branch" ]; then
